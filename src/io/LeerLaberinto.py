@@ -1,16 +1,36 @@
-def procesar_laberinto( matriz ):
-    """
-    la matriz debe ser cuadrada
-    """
-    dimension_n = len( matriz )
-    salida = None 
-    meta = None 
+def procesar_laberinto( ruta_archivo ) :
+    matriz = []
 
-    for fila in range( dimension_n ) :
-        for col in range( dimension_n ) :
-            valor = matriz [ fila ] [ col ]
+    with open( ruta_archivo, 'r', encoding = 'utf-8' ) as ruta :
+        for linea in ruta :
+            linea = linea.strip()
+            if not linea :
+                continue
 
-            if ( valor == 2 ) : salida = ( fila, col )
-            if ( valor == 3 ) : meta = ( fila, col )
+            if linea.startswith( '(' ) and linea.endswith( ')' ) :
+                continue
 
-    return dimension_n, salida, meta
+            linea_limpia = linea.replace( '[', ' ' ).replace( ']', ' ' ).replace( ',', ' ' ).replace( '(', ' ' ).replace( ')', ' ' )
+            celdas = linea_limpia.split()
+
+            if celdas :
+                fila = [ int( celda ) for celda in celdas ]
+                matriz.append( fila )
+
+    if not matriz :
+        return matriz, 0, 0, None, None
+
+    num_filas = len( matriz )
+    num_cols = len( matriz[ 0 ] )
+    inicio = None
+    meta = None
+
+    for i in range( num_filas ) :
+        for j in range( num_cols ) :
+            valor = matriz[ i ][ j ]
+            if valor == 2:
+                inicio = ( i, j )
+            elif valor == 3:
+                meta = ( i, j )
+
+    return matriz, num_filas, num_cols, inicio, meta
