@@ -2,23 +2,27 @@ def procesar_laberinto( ruta_archivo ) :
     matriz = []
 
     with open( ruta_archivo, 'r', encoding = 'utf-8' ) as ruta :
+        #Recorre el archivo linea por linea
         for linea in ruta :
+            #elimina espacios en blanco, tab, \n
             linea = linea.strip()
-            if not linea :
-                continue
+            #si la linea queda vacia va a la siguiente
+            if not linea : continue
 
-            if linea.startswith( '(' ) and linea.endswith( ')' ) :
-                continue
+            #Se salta la primera linea
+            if linea.startswith( '(' ) and linea.endswith( ')' ) : continue
 
             linea_limpia = linea.replace( '[', ' ' ).replace( ']', ' ' ).replace( ',', ' ' ).replace( '(', ' ' ).replace( ')', ' ' )
             celdas = linea_limpia.split()
 
-            if celdas :
-                fila = [ int( celda ) for celda in celdas ]
-                matriz.append( fila )
+            if celdas:
+                fila = []
+                for celda in celdas:
+                    fila.append(int(celda))
+    
+                matriz.append(fila)
 
-    if not matriz :
-        return matriz, 0, 0, None, None
+    if not matriz : return matriz, 0, 0, None, None
 
     num_filas = len( matriz )
     num_cols = len( matriz[ 0 ] )
