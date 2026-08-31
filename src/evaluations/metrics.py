@@ -1,6 +1,6 @@
 import time
-from src.search.busqueda_ciega import busqueda_anchura, busqueda_profundidad
-from src.search.busqueda_informada import busqueda_a_estrella
+from src.search.blind_search import busqueda_anchura, busqueda_profundidad
+from src.search.informed_search import busqueda_a_estrella
 
 def medir_algoritmo(funcion_busqueda, grafo, inicio, meta) : 
     tiempo_inicio = time.perf_counter()
