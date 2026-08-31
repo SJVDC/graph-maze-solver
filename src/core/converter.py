@@ -1,32 +1,36 @@
-from src.core.Graph import Grafo
+from src.core.graph import Graph
 
-def matriz_a_grafo( matriz ) :
-    num_filas = len( matriz )
-    if num_filas > 0 : 
-        num_cols = len( matriz[ 0 ] )
-    else : 
+
+def matrix_to_graph(matrix):
+    num_rows = len(matrix)
+    if num_rows > 0:
+        num_cols = len(matrix[0])
+    else:
         num_cols = 0
-    grafo = Grafo()
 
-    #movimientos permitidos, en 2D
-    movimientos = [ ( -1, 0 ), ( 1, 0 ), ( 0, -1 ), ( 0, 1 ) ]
+    graph = Graph()
+    movements = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
-    for fila in range( num_filas ) :
-        for col in range( num_cols ) :
-            valor_actual = matriz[ fila ][ col ]
+    for row in range(num_rows):
+        for col in range(num_cols):
+            current_value = matrix[row][col]
 
-            #solo procesar cada celda valida
-            if valor_actual != 1 : 
-                nodo_actual = ( fila, col )
-                grafo.agregar_nodo( nodo_actual )
-                for df, dc in movimientos : 
-                    nueva_fila, nueva_col = fila +df, col + dc
+            if current_value != 1:
+                current_node = (row, col)
+                graph.add_node(current_node)
 
-                    if ( 0 <= nueva_fila < num_filas and 0 <= nueva_col < num_cols ) :
-                        valor_vecino = matriz[ nueva_fila ][ nueva_col ]
+                for row_offset, col_offset in movements:
+                    new_row = row + row_offset
+                    new_col = col + col_offset
 
-                        if ( valor_vecino != 1 ) : 
-                            nodo_vecino = ( nueva_fila, nueva_col )
-                            grafo.agregar_arista( nodo_actual, nodo_vecino, peso = 1 )
+                    if 0 <= new_row < num_rows and 0 <= new_col < num_cols:
+                        neighbor_value = matrix[new_row][new_col]
 
-    return grafo
+                        if neighbor_value != 1:
+                            neighbor_node = (new_row, new_col)
+                            graph.add_edge(current_node, neighbor_node, weight=1)
+
+    return graph
+
+
+matriz_a_grafo = matrix_to_graph

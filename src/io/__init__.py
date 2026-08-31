@@ -1,3 +1,3 @@
-from .LeerLaberinto import procesar_laberinto
+from .maze_reader import process_maze, procesar_laberinto
 
-__all__ = ["procesar_laberinto"]
+__all__ = ["process_maze", "procesar_laberinto"]

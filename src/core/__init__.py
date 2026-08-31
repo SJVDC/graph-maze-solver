@@ -1,4 +1,4 @@
-from .Graph import Grafo
-from .converter import matriz_a_grafo
+from .graph import Graph, Grafo
+from .converter import matrix_to_graph, matriz_a_grafo
 
-__all__ = [ "Grafo", "matriz_a_grafo"]
+__all__ = ["Graph", "Grafo", "matrix_to_graph", "matriz_a_grafo"]
